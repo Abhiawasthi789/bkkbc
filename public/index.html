@@ -65,6 +65,8 @@
                         },
                         error: function(err) {
                             // errorMessage.text(err.responseJSON.error);
+                            errorMessage.text(err.responseText);
+
                             error.show();
                         }
                     })
