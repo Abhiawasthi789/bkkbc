@@ -16,12 +16,14 @@ app.post('/update', function(req, res) {
         // watch for any connect issues
         if (err) console.log(err);
         conn.query(
-            'UPDATE salesforce.Product__c SET Product_Name__c = $1,Price__c = $2 WHERE LOWER(Buyer_Name__c) = LOWER($3) AND LOWER(Buyer_Email__c) = LOWER($4) AND LOWER(Buyer_Phone__c) = LOWER($5)',
-            [req.body.productName.trim(), req.body.productPrice, req.body.buyerName.trim(), req.body.buyerEmail.trim(), req.body.buyerPhone],
-            function(err, result) {
-                if (err != null || result.rowCount == 0) {
-                  conn.query('INSERT INTO salesforce.Product__c (Product_Name__c, Price__c, Buyer_Name__c, Buyer_Email__c, Buyer_Phone__c) VALUES ($1, $2, $3, $4, $5)',
-                  [req.body.productName.trim(), req.body.productPrice, req.body.buyerName.trim(), req.body.buyerEmail.trim(), req.body.buyerPhone],
+            // 'UPDATE salesforce.Product__c SET Product_Name__c = $1,Price__c = $2 WHERE LOWER(Buyer_Name__c) = LOWER($3) AND LOWER(Buyer_Email__c) = LOWER($4) AND LOWER(Buyer_Phone__c) = LOWER($5)',
+            // [req.body.productName.trim(), req.body.productPrice, req.body.buyerName.trim(), req.body.buyerEmail.trim(), req.body.buyerPhone],
+            // function(err, result) {
+                // if (err != null || result.rowCount == 0) {
+                //   conn.query(
+                      'INSERT INTO salesforce.Product__c (Product_Name__c, Price__c, Buyer_Name__c, Buyer_Email__c, Buyer_Phone__c) VALUES ($1, $2, $3, $4, $5)',
+                  ['prod1', 200, 'amit', 'amit@gmail.com', 879503949],
+                //   [req.body.productName.trim(), req.body.productPrice, req.body.buyerName.trim(), req.body.buyerEmail.trim(), req.body.buyerPhone],
                   function(err, result) {
                     done();
                     if (err) {
@@ -32,15 +34,15 @@ app.post('/update', function(req, res) {
                         // eventhough it was inserted
                         res.json(result);
                     }
-                  });
-                }
-                else {
-                    done();
-                    res.json(result);
-                }
+                //   });
+                })
+                // else {
+                //     done();
+                //     res.json(result);
+                // }
             }
         );
-    });
+
 });
 
 app.listen(app.get('port'), function () {
